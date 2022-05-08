@@ -20,6 +20,10 @@ contract Salt is ERC721ATradable {
 
     address private signerAddress = 0x1e72D4438c49f0f523E9Cbc85c33ca33Ad24B870;
 
+    string public script;
+    string public scriptType = "p5js";
+
+
 
     mapping(bytes32 => bool) private usedHashes;
 
@@ -40,8 +44,29 @@ contract Salt is ERC721ATradable {
         usedHashes[messageHash] = true;
 
         _safeMint(msg.sender, 1);
+        tokenHash(salt);
     }
     
+
+
+    function tokenHash(uint256 salt) public view returns (bytes32) {
+            require(_exists(salt), "DOES NOT EXIST");
+            return
+                bytes32(
+                    keccak256(
+                        abi.encodePacked(block.number, block.timestamp, msg.sender)
+                    )
+                );
+        }
+
+
+    function setScript(string memory _script) public onlyOwner {
+        script = _script;
+    }
+
+    function setScriptType(string memory _scriptType) public onlyOwner {
+        script = _scriptType;
+    }
 
     function setMintingPrice(uint256 _newPrice) external onlyOwner() {
       mintPrice = _newPrice;
