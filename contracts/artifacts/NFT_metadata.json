@@ -217,34 +217,6 @@
 			{
 				"inputs": [
 					{
-						"internalType": "bytes32",
-						"name": "messageHash",
-						"type": "bytes32"
-					},
-					{
-						"internalType": "bytes",
-						"name": "signature",
-						"type": "bytes"
-					},
-					{
-						"internalType": "uint256",
-						"name": "mintNumber",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "maximumAllowedMints",
-						"type": "uint256"
-					}
-				],
-				"name": "allowListMint",
-				"outputs": [],
-				"stateMutability": "payable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
 						"internalType": "address",
 						"name": "to",
 						"type": "address"
@@ -394,18 +366,13 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "mintNumber",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "maximumAllowedMints",
+						"name": "soul",
 						"type": "uint256"
 					}
 				],
 				"name": "mint",
 				"outputs": [],
-				"stateMutability": "nonpayable",
+				"stateMutability": "payable",
 				"type": "function"
 			},
 			{
@@ -653,19 +620,6 @@
 				"inputs": [
 					{
 						"internalType": "uint256",
-						"name": "_newSupply",
-						"type": "uint256"
-					}
-				],
-				"name": "setMaxSupply",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
 						"name": "_newPrice",
 						"type": "uint256"
 					}
@@ -753,25 +707,6 @@
 				"type": "function"
 			},
 			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "",
-						"type": "address"
-					}
-				],
-				"name": "totalMintsPerAddress",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
 				"inputs": [],
 				"name": "totalSupply",
 				"outputs": [
@@ -840,7 +775,7 @@
 			}
 		],
 		"devdoc": {
-			"author": "onisquad.gg",
+			"author": "Valentin Squirelo",
 			"kind": "dev",
 			"methods": {
 				"approve(address,uint256)": {
@@ -851,14 +786,6 @@
 				},
 				"getApproved(uint256)": {
 					"details": "See {IERC721-getApproved}."
-				},
-				"mint(bytes32,bytes,uint256,uint256)": {
-					"params": {
-						"maximumAllowedMints": ": maximum number of nfts that can be minted from the caller.",
-						"messageHash": ": message created by the backend that will be verified against the signature.",
-						"mintNumber": ": how many NFTs caller wants to mint.",
-						"signature": ": message with signature."
-					}
 				},
 				"name()": {
 					"details": "See {IERC721Metadata-name}."
@@ -887,21 +814,6 @@
 				"setApprovalForAll(address,bool)": {
 					"details": "See {IERC721-setApprovalForAll}."
 				},
-				"setMaxSupply(uint256)": {
-					"params": {
-						"_newSupply": ": new maximum supply value."
-					}
-				},
-				"setMintingPrice(uint256)": {
-					"params": {
-						"_newPrice": ": amount to mint one oni mansion."
-					}
-				},
-				"setSignerAddress(address)": {
-					"params": {
-						"_signerAddress": ": new signer address value."
-					}
-				},
 				"supportsInterface(bytes4)": {
 					"details": "See {IERC165-supportsInterface}."
 				},
@@ -921,7 +833,7 @@
 					"details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
 				}
 			},
-			"title": "Oni Mansion Contract",
+			"title": "ERC721AR",
 			"version": 1
 		},
 		"userdoc": {
@@ -994,35 +906,17 @@
 			},
 			"kind": "user",
 			"methods": {
-				"allowListMint(bytes32,bytes,uint256,uint256)": {
-					"notice": "Similar to mint/4, but also payable."
-				},
-				"constructor": {
-					"notice": "Contract Constructor"
-				},
 				"flipProxyState(address)": {
 					"notice": "Function to disable gasless listings for security in case opensea or other contracts ever shut down or are compromised"
 				},
 				"isApprovedForAll(address,address)": {
 					"notice": "Override isApprovedForAll to allowlist user's OpenSea proxy accounts to enable gas-less listings. and In addition, you can add other Proxy Approvals in the future. Perhaps, you can skip the approval tx for future NFT Marketplaces (coinbase, kraken) or games. This safeguards the collection for integrability."
 				},
-				"mint(bytes32,bytes,uint256,uint256)": {
-					"notice": "Allow for minting of tokens up to the maximum allowed for a given address. The address of the sender and the number of mints allowed are hashed and signed with a private key and verified here to prove allowlisting status."
-				},
 				"setBaseURI(string)": {
 					"notice": "Update the base token URI"
-				},
-				"setMaxSupply(uint256)": {
-					"notice": "Update max supply (can only be called once)."
-				},
-				"setMintingPrice(uint256)": {
-					"notice": "Update mint price."
-				},
-				"setSignerAddress(address)": {
-					"notice": "Update signer address."
 				}
 			},
-			"notice": "This contract handles minting for Oni Mansions.",
+			"notice": "ERC721A + royalties + proxies.",
 			"version": 1
 		}
 	},
@@ -1154,20 +1048,20 @@
 				"dweb:/ipfs/QmQJquTMtc6fgm5JQzGdsGpA2fqBe3MHWEdt2qzaLySMdN"
 			]
 		},
-		"contracts/ERC721AG.sol": {
-			"keccak256": "0xa1eca9e5c508de17a3985d3250c72de6fdcf71a989fdc39c79fb6fb9e723ef21",
+		"contracts/ERC721ATradable.sol": {
+			"keccak256": "0x30eefc6628c69373513f86d9c0ef30ad0f9f7fbb8b5b452400351475c1d25291",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://fa2ebfca92cf7563177785290b9d258704bbf4b4da8cf14a4c6cde50ff99b8fd",
-				"dweb:/ipfs/Qmb1mJBsbGBtbxBxDXAnWKim1K32GVqBj11c7TQH7MC9zA"
+				"bzz-raw://3a0fb782b680f38bcd1bc95e905a51f3fee9ff08364a1dd42456aded1b31280e",
+				"dweb:/ipfs/QmNwEYcoByFUfj2b4wYy3smF6ohphGSmdsqS3D7hCobtVF"
 			]
 		},
 		"contracts/NFT.sol": {
-			"keccak256": "0xaad9f791aec32592c382186940798d7eed4b669bac92ad5bc36f9ceacf032bc4",
+			"keccak256": "0xbebfe85ce02229353f2079cc9711f6760d212ce2d03ddd318346bdbd15c2ecb1",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://62e1b0c66c14a7a638f8505ecae3fff004c4445bd436223f97c4938963aa1d46",
-				"dweb:/ipfs/QmTSeBJXFCGR8xY7wQ1Gysa9WtpfaQXhM29eQ43kZuytyW"
+				"bzz-raw://194d95bfbc6bbf30a55b42af3161fa21e133fca4e5cab9b75dddf5b876d0ac49",
+				"dweb:/ipfs/QmW3GUDUdpLkTuu3a2A3KYDz2P8rgdgw3r2gUmTawU4gvZ"
 			]
 		},
 		"erc721a/contracts/ERC721A.sol": {
