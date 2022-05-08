@@ -931,7 +931,7 @@
 		},
 		"optimizer": {
 			"enabled": true,
-			"runs": 1000
+			"runs": 200
 		},
 		"remappings": []
 	},
@@ -1057,11 +1057,11 @@
 			]
 		},
 		"contracts/Salt.sol": {
-			"keccak256": "0xf5a4d663a533d9f4d2a039a920fb1efcfda531e97b34112dc52ad03ad472944f",
+			"keccak256": "0xcd3148a4734dbfaf1f1a2e4d3374cabe339b32b70c860d8092d97c50fcb4510a",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://6b9b6a333c03b0266655e319d204ab8ee321cfc2ebfd6709ffdec091e82b0da1",
-				"dweb:/ipfs/QmPtzKoa71ah6bAF49JNQ69i6fToUpZf9Ryz6nF6tiKXLb"
+				"bzz-raw://273e7af74abbb7a1b60dae6c3982071146ff30f0d08d72d65ea165a9d147d789",
+				"dweb:/ipfs/QmQLUZbqXxDHbqmyHNe7vvpRNS4dGrbyLkArdvJebzfjy6"
 			]
 		},
 		"erc721a/contracts/ERC721A.sol": {

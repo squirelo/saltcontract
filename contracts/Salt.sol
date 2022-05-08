@@ -26,14 +26,12 @@ contract Salt is ERC721ATradable {
     constructor(
       string memory baseTokenURI_
     ) ERC721ATradable("Salt token", "SALT", baseTokenURI_) {
-        includedProxies.push(0xa5409ec958C83C3f309868babACA7c86DCB077c1);
-        proxyToApprove[0xa5409ec958C83C3f309868babACA7c86DCB077c1] = true;
         receiverAddress = 0x1e72D4438c49f0f523E9Cbc85c33ca33Ad24B870;
     }
 
 
     function mint(bytes32 messageHash, bytes memory signature, uint256 salt) external payable {
-        require(salt == totalSupply() + 1, "Wrong Salt Id");
+        require(salt == totalSupply(), "Wrong Salt Id");
         require(tx.origin == msg.sender, "The caller is another contract");
         require(totalSupply() < maxSupply, "Max Supply Reached");
         require(msg.value == (mintPrice),"Wrong price");
