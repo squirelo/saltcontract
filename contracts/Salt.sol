@@ -38,7 +38,7 @@ contract Salt is ERC721ATradable {
     function generateSalt(bytes32 messageHash, bytes memory signature) external payable {
         uint256 salt = totalSupply();
         require(tx.origin == msg.sender, "The caller is another contract");
-        require(totalSupply() < maxSupply, "Max Supply Reached");
+        require(salt < maxSupply, "Max Supply Reached");
         require(msg.value == (mintPrice),"Wrong price");
         require(verifyAddressSigner(messageHash, signature), "Signature validation has failed");
         require(!usedHashes[messageHash], "Hash has already been used");
