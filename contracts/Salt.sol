@@ -23,9 +23,10 @@ contract Salt is ERC721ATradable {
     string public script;
     string public scriptType = "p5js";
 
-
+    event NewSaltHash(uint256 indexed salt, bytes32 indexed tokenHash);
 
     mapping(bytes32 => bool) private usedHashes;
+    mapping(uint256 => bytes32) public soulHashes;
 
     constructor(
       string memory baseTokenURI_
@@ -34,8 +35,8 @@ contract Salt is ERC721ATradable {
     }
 
 
-    function mint(bytes32 messageHash, bytes memory signature, uint256 salt) external payable {
-        require(salt == totalSupply(), "Wrong Salt Id");
+    function generateSalt(bytes32 messageHash, bytes memory signature) external payable {
+        uint256 salt = totalSupply();
         require(tx.origin == msg.sender, "The caller is another contract");
         require(totalSupply() < maxSupply, "Max Supply Reached");
         require(msg.value == (mintPrice),"Wrong price");
@@ -44,21 +45,16 @@ contract Salt is ERC721ATradable {
         usedHashes[messageHash] = true;
 
         _safeMint(msg.sender, 1);
-        tokenHash(salt);
+        generateSaltHash(salt);
     }
     
 
-
-    function tokenHash(uint256 salt) public view returns (bytes32) {
-            require(_exists(salt), "DOES NOT EXIST");
-            return
-                bytes32(
-                    keccak256(
-                        abi.encodePacked(block.number, block.timestamp, msg.sender)
-                    )
-                );
-        }
-
+    function generateSaltHash(uint256 salt) internal {
+        require(_exists(salt), "DOES NOT EXIST");
+        bytes32 hash = keccak256(abi.encodePacked(block.number, block.timestamp, msg.sender));
+        soulHashes[salt]=hash;
+        emit NewSaltHash(salt, hash);
+    }
 
     function setScript(string memory _script) public onlyOwner {
         script = _script;
