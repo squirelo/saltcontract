@@ -50,7 +50,6 @@ contract Salt is ERC721ATradable {
     
 
     function generateSaltHash(uint256 salt) internal {
-        require(_exists(salt), "DOES NOT EXIST");
         bytes32 hash = keccak256(abi.encodePacked(block.number, block.timestamp, msg.sender));
         soulHashes[salt]=hash;
         emit NewSaltHash(salt, hash);
